@@ -3,6 +3,17 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+
+  --yellow: #FDC913;
+  --light-gray: #5F5F5F;
+  --dark-gray: #292929;
+  --red: #CE2829;
+  --beige: #FAF7F2;
+
+  --font-1: 'Roboto Condensed';
+  --font-2: 'Barlow';
+  --font-3: 'Quattrocento';
+  --font-4: 'Satisfy';
 }
 
 .logo {
