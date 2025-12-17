@@ -13,6 +13,8 @@ import CustomerName from './CustomerName';
 
 export default function OrderPizza() {
 
+    console.log("OrderPizza render edildi");
+
     const [pizzaBoyutu, setPizzaBoyutu] = useState('');
     const [siparisSayisi, setSiparisSayisi] = useState(1);
     const [ekMalzemeler, setEkMalzemeler] = useState([]);
@@ -126,6 +128,9 @@ export default function OrderPizza() {
 
     return (
         <>
+        <div className="text-2xl p-10">
+            ORDER PIZZA ÇALIŞIYOR
+        </div>
         <OrderHeader />
         <OrderHero />
         

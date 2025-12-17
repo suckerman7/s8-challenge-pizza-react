@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Home from '../components/Home';
-import OrderPizza from '../components/OrderPizza';
-import Success from '../components/Success';
+
+import Home from './components/Home';
+import OrderPizza from './components/OrderPizza';
+import Success from './components/Success';
 import './App.css'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,8 +10,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
 
   return (
-    <>
-      <div className='content-section'>
         <Router>
           <Switch>
             <Route exact path='/'>
@@ -26,9 +25,7 @@ function App() {
             </Route>
           </Switch>
         </Router>
-      </div>
-    </>
   );
 }
 
-export default App
+export default App;
