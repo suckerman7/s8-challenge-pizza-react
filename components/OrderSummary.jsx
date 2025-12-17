@@ -15,7 +15,13 @@ export default function OrderSummary({secimlerToplam, toplamFiyat}) {
                 <span>{toplamFiyat.toFixed(2)}₺</span>
             </div>
 
-            <Button type='submit' className='w-full bg-yellow-400 py-3 rounded-md font-bold hover:bg-yellow-500 transition'>
+            <Button 
+                type='submit' 
+                className={`w-full bg-yellow-400 py-3 rounded-md font-bold hover:bg-yellow-500 transition 
+                ${disabled ? "bg-gray-300 cursor-not-allowed"
+                           : "bg-yellow-400 hover:bg-yellow-500"}`
+                }
+            >
                 SİPARİŞ VER
             </Button>
         </div>

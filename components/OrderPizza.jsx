@@ -1,12 +1,15 @@
 import {useState, useEffect} from 'react';
 import {Form, FormGroup, Label, Input} from 'reactstrap';
-import OrderHeader from './components/OrderHeader';
-import OrderHero from './components/OrderHero';
-import OrderCount from './components/OrderCount';
-import OrderSummary from './components/OrderSummary';
-import PizzaBoyutu from './components/PizzaBoyutu';
-import HamurKalinligi from './components/HamurKalinligi';
-import EkMalzemeler from './components/EkMalzemeler';
+import axios from 'axios';
+import {useHistory} from 'react-router-dom';
+import OrderHeader from './OrderHeader';
+import OrderHero from './OrderHero';
+import OrderCount from './OrderCount';
+import OrderSummary from './OrderSummary';
+import PizzaBoyutu from './PizzaBoyutu';
+import HamurKalinligi from './HamurKalinligi';
+import EkMalzemeler from './EkMalzemeler';
+import CustomerName from './CustomerName';
 
 export default function OrderPizza() {
 
@@ -14,9 +17,12 @@ export default function OrderPizza() {
     const [siparisSayisi, setSiparisSayisi] = useState(1);
     const [ekMalzemeler, setEkMalzemeler] = useState([]);
     const [hamurKalinligi, setHamurKalinligi] = useState('');
+    const [musteriIsmi, setMusteriIsmi] = useState('');
 
     const [errors, setErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
+
+    const history = useHistory();
 
     const pizzaFiyati = 85.5;
 
@@ -51,10 +57,30 @@ export default function OrderPizza() {
             hataListesi.ekMalzemeler = 'En fazla 10 malzeme seçmelisiniz.'
         }
 
+        if (!musteriIsmi || musteriIsmi.trim().length < 3) {
+            hataListesi.musteriIsmi = "İsminiz en az 3 karakterde olmalıdır."
+        }
+
         return hataListesi;
     }
 
-    const handleSubmit = (event) => {
+    const formHazirMi =
+        musteriIsmi.trim().length >= 3 
+        && pizzaBoyutu 
+        && hamurKalinligi 
+        && ekMalzemeler.length >= 4 
+        && ekMalzemeler.length <= 10;
+
+    const resetForm = () => {
+        setMusteriIsmi('');
+        setPizzaBoyutu('');
+        setHamurKalinligi('');
+        setEkMalzemeler([]);
+        setErrors([]);
+        setSubmitted(false);
+    }
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         setSubmitted(true);
 
@@ -63,7 +89,34 @@ export default function OrderPizza() {
 
         if(Object.keys(validasyonHatalari).length > 0) return;
 
-        console.log("Sipariş Gönderildi");
+        const siparisVerisi = {
+            musteriIsmi,
+            pizzaBoyutu,
+            hamurKalinligi,
+            ekMalzemeler,
+            secimlerToplam,
+            toplamFiyat,
+        };
+
+        try {
+            const response = await axios.post(
+                "https://reqres.in/api/pizza",
+                siparisVerisi,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-api-key": "reqres-free-v1",
+                    },
+                }
+            );
+
+            console.log("Sipariş Yanıtı:", response.data);
+
+            resetForm();
+            history.push('/success');
+        } catch (error) {
+            console.error("Sipariş gönderilirken hata oluştu!", error)
+        }
     };
 
     useEffect(() => {
@@ -96,6 +149,12 @@ export default function OrderPizza() {
                     />
                 </FormGroup>
                 <FormGroup>
+                    <CustomerName
+                        value={musteriIsmi}
+                        onChange={setMusteriIsmi}
+                        error={errors.musteriIsmi}
+                    />
+
                     <Label for='order-note'>Sipariş Notu</Label>
                     <Input 
                         id='data-order-note'
@@ -109,7 +168,7 @@ export default function OrderPizza() {
                 <div className="flex-items-start justify-between mt-8">
                     <OrderCount siparisSayisi={siparisSayisi} setSiparisSayisi={setSiparisSayisi}/>
 
-                    <OrderSummary secimlerToplam={secimlerToplam} toplamFiyat={toplamFiyat} />
+                    <OrderSummary secimlerToplam={secimlerToplam} toplamFiyat={toplamFiyat} disabled={!formHazirMi} />
                 </div>
             </Form>
         </div>
