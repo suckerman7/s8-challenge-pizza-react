@@ -1,31 +1,16 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Home from "./components/Home";
+import OrderPizza from "./components/OrderPizza";
+import Success from "./components/Success";
 
-import Home from './components/Home';
-import OrderPizza from './components/OrderPizza';
-import Success from './components/Success';
-import './App.css'
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-function App() {
-
+export default function App() {
   return (
-        <Router>
-          <Switch>
-            <Route exact path='/'>
-              <Home />
-            </Route>
-
-            <Route path='/order'>
-              <OrderPizza />
-            </Route>
-
-            <Route path='/success'>
-              <Success />
-            </Route>
-          </Switch>
-        </Router>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/order" component={OrderPizza} />
+        <Route path="/success" component={Success} />
+      </Switch>
+    </Router>
   );
 }
-
-export default App;

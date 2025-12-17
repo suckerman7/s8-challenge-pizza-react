@@ -1,56 +1,51 @@
-import {FormGroup, Label, Input} from 'reactstrap';
-
-const ekMalzemeListesi = [
-        "Pepperoni",
-        "Sosis",
-        "Kanada Jambonu",
-        "Tavuk Izgara",
-        "Soğan",
-        "Domates",
-        "Mısır",
-        'Sucuk',
-        'Jalepeno',
-        'Sarımsak',
-        'Biber',
-        'Salam',
-        'Ananas',
-        'Kabak'
+const malzemeler = [
+  "Pepperoni",
+  "Sosis",
+  "Kanada Jambonu",
+  "Tavuk Izgara",
+  "Soğan",
+  "Domates",
+  "Mısır",
+  "Sucuk",
+  "Jalepeno",
+  "Sarımsak",
+  "Biber",
+  "Salam",
+  "Ananas",
+  "Kabak",
 ];
 
-export default function EkMalzemeler({selected, onChange}) {
-    return (
-        <FormGroup
-            className={error ? 'border border-red-500 rounded p-2' : ''}
+export default function EkMalzemeler({ selected, onChange, error }) {
+  return (
+    <div className={error ? "border border-red-500 p-3 rounded" : ""}>
+      <h3 className="font-semibold mb-2">
+        Ek Malzemeler <span className="text-red-500">*</span>
+      </h3>
+
+      <p className="text-sm text-gray-500 mb-4">
+        En az 4, en fazla 10 malzeme seçebilirsiniz. 5₺
+      </p>
+
+      <div className="grid grid-flow-col grid-rows-5 gap-x-10 gap-y-3">
+        {malzemeler.map((malzeme) => (
+        <label
+          key={malzeme}
+          className="flex items-center gap-2 text-sm cursor-pointer"
         >
-            <Label>Ek Malzemeler</Label>
-            <p className='text-sm text-gray-500'>
-                En Fazla 10 malzeme seçebilirsiniz. (5₺)
-            </p>
+        <input
+          type="checkbox"
+          checked={selected.includes(malzeme)}
+          onChange={() => onChange(malzeme)}
+          className="accent-red-600"
+        />
+        {malzeme}
+      </label>
+      ))}
+    </div>
 
-            <div className='grid grid-cols-2 gap-2 mt-2'>
-                {ekMalzemeListesi.map((ekMalzeme) => {
-                    const checked = selected.includes(ekMalzeme);
-                    const disabled = selected.length >= 10 & !checked;
-
-                    return (
-                        <Label key={ekMalzeme} className='flex items-center gap-2'>
-                            <Input 
-                                type='checkbox'
-                                checked={checked}
-                                disabled={disabled}
-                                onChange={() => onChange(ekMalzeme)}
-                            />
-                            {ekMalzeme}
-                        </Label>  
-                    );
-                })}
-            </div>
-
-            {error && (
-                <p className='text-red-500 text-sm mt-1'>
-                    {error}
-                </p>
-            )}
-        </FormGroup>
-    );
+      {error && (
+        <p className="text-red-500 text-sm mt-2">{error}</p>
+      )}
+    </div>
+  );
 }

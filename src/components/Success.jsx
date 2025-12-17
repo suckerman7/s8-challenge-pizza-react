@@ -1,27 +1,22 @@
-import logo from './images/iteration-1-images/logo.svg';
+import logo from '../images/iteration-1-images/logo.svg';
 
 export default function Success() {
-    return (
-        <div className='min-h-screen bg-red-600 flex flex-col'>
-            <header className='py-6 text-center'>
-                <img 
-                    src={logo}
-                    alt='Teknolojik Yemekler' 
-                    className='mx-auto h-10'
-                ></img>
-            </header>
+  return (
+    <main className="min-h-screen bg-[#CE2829] text-white font-condensed flex flex-col items-center">
 
-            <main className='flex-1 flex items-center justify-center text-center px-4'>
-                <div>
-                    <h1 className='text-white text-4xl md:text-5xl font-light tracking-wide mb-4'>
-                        TEBRİKLER!
-                    </h1>
+        <img
+            src={logo}
+            alt="Teknolojik Yemekler"
+            className="w-96 mt-32 mb-24"
+        />
 
-                    <h2 className='text-white text-3xl md:text-4xl font-light tracking-wide'>
-                        SİPARİŞİNİZ ALINDI!
-                    </h2>
-                </div>
-            </main>
-        </div>
-    );
+      <div className="text-center mt-68">
+        <h1 className="text-5xl md:text-8xl tracking-wide leading-tight">
+          TEBRİKLER! <br />
+          SİPARİŞİNİZ ALINDI!
+        </h1>
+      </div>
+
+    </main>
+  );
 }

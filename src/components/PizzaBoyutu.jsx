@@ -1,30 +1,31 @@
-import {FormGroup, Label, Input} from 'reactstrap';
+export default function PizzaBoyutu({ value, onChange, error }) {
+  const sizes = ["Küçük", "Orta", "Büyük"];
 
-export default function PizzaBoyutu({value, onChange}) {
-    return (
-        <FormGroup className={error ? 'border border-red-500 rounded p-2' : ''}>
-            <Label>Boyut Seç <span className='text-red-500'>*</span></Label>
+  return (
+    <div
+      className={error ? "border border-red-500 p-3 rounded" : ""}
+    >
+    <h3 className="font-semibold mb-2">
+      Boyut Seç <span className="text-red-500">*</span>
+    </h3>
 
-            {['small', 'normal', 'large'].map((boyut) => (
-                <Label key={boyut} className='block'>
-                    <Input 
-                        type='radio'
-                        name='pizza-boyutu'
-                        value= {boyut}
-                        checked= {value === boyut}
-                        onChange={(event) => onChange(event.target.value)}
-                    />
-                    {boyut === 'small' && ' Küçük'}
-                    {boyut === 'normal' && ' Orta'}
-                    {boyut === 'large' && ' Büyük'}
-                </Label>
-            ))}
+      <div className="space-y-2">
+        {["Küçük", "Orta", "Büyük"].map((boyut) => (
+          <label key={boyut} className="flex items-center gap-2">
+            <input
+              type="radio"
+              checked={value === boyut}
+              onChange={() => onChange(boyut)}
+              className="accent-red-600"
+            />
+            {boyut}
+          </label>
+        ))}
+      </div>
 
-            {error && (
-                <p className='text-red-500 text-sm mt-1'>
-                    {error}
-                </p>
-            )}
-        </FormGroup>
-    );
+      {error && (
+        <p className="text-red-500 text-sm mt-2">{error}</p>
+      )}
+    </div>
+  );
 }

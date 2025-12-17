@@ -3,13 +3,19 @@ export default function OrderHero() {
         <section className='relative -mt-6 bg-white rounded-t-3xl'>
             <div className='max-w-4xl mx-auto px-4 py-6'>
 
-                <h2 className='text-2xl font-bold mb-2'>Position Absolute Aci Pizza</h2>
+                <h1 className="text-4xl font-bold">
+                    Position Absolute Acı Pizza
+                </h1>
 
-                <div className='flex items-center gap-6 text-sm mb-4'>
-                    <span className='font-semibold text-lg'>85.50₺</span>
+                <div className="flex items-center justify-between">
+      
+                    <span className="text-3xl font-bold text-gray-800">
+                        85.50₺
+                    </span>
 
-                    <div className='flex items-center gap-2 text-gray-500'>
-                        <span>4.9</span>
+                
+                    <div className="flex items-center gap-2 text-gray-600 text-sm">
+                        <span className="font-semibold">4.9</span>
                         <span>(200)</span>
                     </div>
                 </div>

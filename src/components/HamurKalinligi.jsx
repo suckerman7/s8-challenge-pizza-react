@@ -1,57 +1,22 @@
-import {
-    FormGroup, 
-    Label, 
-    Dropdown, 
-    DropdownToggle, 
-    DropdownMenu, 
-    DropdownItem
-} from 'reactstrap';
-import {useState} from 'react';
+export default function HamurKalinligi({ value, onChange, error }) {
+  return (
+    <div>
+      <label className="font-semibold mb-2 block">
+        Hamur Seç <span className="text-red-500">*</span>
+      </label>
 
-const hamurKalinliklari = [
-        {value: 'thin', label: 'İnce Hamur'},
-        {value: 'normal', label: 'Klasik Hamur'},
-        {value: 'thick', label: 'Kalın Hamur'},
-];
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-56 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+          
+        <option value="">Hamur Kalınlığı</option>
+        <option value="İnce">İnce Hamur</option>
+        <option value="Orta">Klasik Hamur</option>
+        <option value="Kalın">Kalın Hamur</option>
+      </select>
 
-export default function HamurKalinligi({value, onChange}) {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <FormGroup>
-            <Label>
-                Hamur Seç <span className='text-red-500'>*</span>
-            </Label>
-
-            <Dropdown isOpen={open} toggle={() => setOpen(!open)}>
-                <DropdownToggle 
-                    caret 
-                    className={`w-full-text-left ${error ? 'border border-red-500' : ''}`}
-                >
-                    {value ? hamurKalinliklari.find((h) => h.value === value).label
-                    : 'Hamur Kalınlığı'}
-                </DropdownToggle>
-
-                <DropdownMenu className='w-full'>
-                    {hamurKalinliklari.map((kalinlik) => (
-                        <DropdownItem
-                            key={kalinlik.value}
-                            onClick={() => {
-                                onChange(kalinlik.value)
-                                setOpen(false);
-                            }}
-                        >
-                            {kalinlik.label} 
-                        </DropdownItem>
-                    ))}
-                </DropdownMenu>
-            </Dropdown>
-
-            {error && (
-                <p className='text-red-500 text-sm mt-1'>
-                    {error}
-                </p>
-            )}
-        </FormGroup>
-    );
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+    </div>
+  );
 }

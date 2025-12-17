@@ -1,42 +1,42 @@
-import {useHistory} from 'react-router-dom';
-import homeBanner from '../images/iteration-1-images/home-banner.png';
-import logo from '../images/iteration-1-images/logo.svg';
-
-import {Button} from 'reactstrap';
+import { useHistory } from "react-router-dom";
+import homeBanner from "../images/iteration-1-images/home-banner.png";
+import logo from "../images/iteration-1-images/logo.svg";
 
 export default function Home() {
+  const history = useHistory();
 
-    const history = useHistory();
+  return (
+    <main className="relative w-full h-screen overflow-hidden font-condensed">
 
-    return (
-        <main className='min-h-screen bg-red-600 relative overflow-hidden'>
-            <header className='text-center py-6'>
-                <img
-                    src={logo}
-                    alt='Teknolojik Yemekler'
-                    className='text-center py-6'
-                />
-            </header>
+      
+      <img
+        src={homeBanner}
+        alt="Pizza Banner"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
 
-            <section className='flex flex-col items-center text-center px-4'>
-                <h1 className='text-white text-4xl md:text-5xl font-light tracking-wide mb-6'>
-                    KOD ACIKTIRIR <br />
-                    <span className='font-bold'>PİZZA, DOYURUR</span>
-                </h1>
+      <div className="relative z-10 flex flex-col items-center text-center text-white">
+        
+        <img
+          src={logo}
+          alt="Teknolojik Yemekler"
+          className="mt-24 mb-12 w-lg"
+        />
 
-                <Button 
-                    onClick={() => history.push("/order")}
-                    className='bg-yellow-400 hover:bg-yellow-500 transition text-block font-bold px-10 py-3 rounded-full mb-10'
-                >
-                    ACIKTIM
-                </Button>
+        <h1 className="text-7xl md:text-9xl font-light tracking-wide leading-none">
+          KOD ACIKTIRIR
+          <br />
+          PİZZA, DOYURUR
+        </h1>
 
-                <img 
-                    src={homeBanner}
-                    alt='Pizza Home Banner'
-                    className='max-w-full md:max-w-4xl'
-                />
-            </section>
-        </main>
-    );
+        <button
+          onClick={() => history.push("/order")}
+          className="mt-14 bg-yellow-400 hover:bg-yellow-500 transition text-black font-bold px-20 py-5 rounded-full text-xl"
+        >
+          ACIKTIM
+        </button>
+
+      </div>
+    </main>
+  );
 }

@@ -1,5 +1,4 @@
 import {useState, useEffect} from 'react';
-import {Form, FormGroup, Label, Input} from 'reactstrap';
 import axios from 'axios';
 import {useHistory} from 'react-router-dom';
 import OrderHeader from './OrderHeader';
@@ -10,16 +9,16 @@ import PizzaBoyutu from './PizzaBoyutu';
 import HamurKalinligi from './HamurKalinligi';
 import EkMalzemeler from './EkMalzemeler';
 import CustomerName from './CustomerName';
+import SiparisNotu from './SiparisNotu';
 
 export default function OrderPizza() {
-
-    console.log("OrderPizza render edildi");
 
     const [pizzaBoyutu, setPizzaBoyutu] = useState('');
     const [siparisSayisi, setSiparisSayisi] = useState(1);
     const [ekMalzemeler, setEkMalzemeler] = useState([]);
     const [hamurKalinligi, setHamurKalinligi] = useState('');
     const [musteriIsmi, setMusteriIsmi] = useState('');
+    const [siparisNotu, setSiparisNotu] = useState('');
 
     const [errors, setErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
@@ -34,17 +33,17 @@ export default function OrderPizza() {
 
     const toplamFiyat = (pizzaFiyati + secimlerToplam) * siparisSayisi;
 
-    const handleIngredientChange = (ekMalzemeler) => {
+    const handleIngredientChange = (ingredient) => {
         setEkMalzemeler((prev) =>
-            prev.includes(ekMalzemeler)
-                ? prev.filter((e) => e !== ekMalzemeler)
+            prev.includes(ingredient)
+                ? prev.filter((e) => e !== ingredient)
                 : prev.length < 10
-                ? [...prev, ekMalzemeler]
+                ? [...prev, ingredient]
                 : prev
         );
     };
 
-    const validasyonFormu = () => {
+    const validasyonformu = () => {
         const hataListesi = {};
 
         if (!pizzaBoyutu) {
@@ -67,18 +66,20 @@ export default function OrderPizza() {
     }
 
     const formHazirMi =
-        musteriIsmi.trim().length >= 3 
+        siparisSayisi >= 1
+        && musteriIsmi.trim().length >= 3 
         && pizzaBoyutu 
         && hamurKalinligi 
         && ekMalzemeler.length >= 4 
         && ekMalzemeler.length <= 10;
 
-    const resetForm = () => {
+    const resetform = () => {
         setMusteriIsmi('');
         setPizzaBoyutu('');
         setHamurKalinligi('');
         setEkMalzemeler([]);
-        setErrors([]);
+        setSiparisNotu('');
+        setErrors({});
         setSubmitted(false);
     }
 
@@ -86,7 +87,7 @@ export default function OrderPizza() {
         event.preventDefault();
         setSubmitted(true);
 
-        const validasyonHatalari = validasyonFormu();
+        const validasyonHatalari = validasyonformu();
         setErrors(validasyonHatalari);
 
         if(Object.keys(validasyonHatalari).length > 0) return;
@@ -96,6 +97,7 @@ export default function OrderPizza() {
             pizzaBoyutu,
             hamurKalinligi,
             ekMalzemeler,
+            siparisNotu,
             secimlerToplam,
             toplamFiyat,
         };
@@ -114,7 +116,7 @@ export default function OrderPizza() {
 
             console.log("Sipariş Yanıtı:", response.data);
 
-            resetForm();
+            resetform();
             history.push('/success');
         } catch (error) {
             console.error("Sipariş gönderilirken hata oluştu!", error)
@@ -123,60 +125,55 @@ export default function OrderPizza() {
 
     useEffect(() => {
         if (!submitted) return;
-        setErrors(validasyonFormu());
-    }, [pizzaBoyutu, hamurKalinligi, ekMalzemeler]);
+        setErrors(validasyonformu());
+    }, [pizzaBoyutu, hamurKalinligi, ekMalzemeler, musteriIsmi]);
 
     return (
-        <>
-        <div className="text-2xl p-10">
-            ORDER PIZZA ÇALIŞIYOR
-        </div>
+        <>      
+        <main className="min-h-screen bg-gray-50 font-barlow">
         <OrderHeader />
-        <OrderHero />
-        
-        <div className="form-content">
-            <Form onSubmit={handleSubmit}>
-                <FormGroup>
-                    <PizzaBoyutu 
-                        value={pizzaBoyutu} 
-                        onChange={setPizzaBoyutu} 
-                        error={submitted && errors.pizzaBoyutu}
-                    />
-                    <HamurKalinligi 
-                        value={hamurKalinligi} 
-                        onChange={setHamurKalinligi}
-                        error={submitted && errors.hamurKalinligi}
-                    />
-                    <EkMalzemeler 
-                        selected={ekMalzemeler} 
-                        onChange={handleIngredientChange}
-                        error={submitted && errors.ekMalzemeler}
-                    />
-                </FormGroup>
-                <FormGroup>
-                    <CustomerName
-                        value={musteriIsmi}
-                        onChange={setMusteriIsmi}
-                        error={errors.musteriIsmi}
-                    />
 
-                    <Label for='order-note'>Sipariş Notu</Label>
-                    <Input 
-                        id='data-order-note'
-                        name='order-note'
-                        type='text'
-                        placeholder='Siparişine eklemek istediğin bir not var mı?'
-                    />
-                </FormGroup>
-                <hr />
+            <section className="max-w-3xl mx-auto mt-10 px-4">
+            <OrderHero />
+    
+                <form className="bg-white p-6 rounded-lg shadow space-y-8 mt-8" onSubmit={handleSubmit}>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <PizzaBoyutu 
+                            value={pizzaBoyutu} 
+                            onChange={setPizzaBoyutu} 
+                            error={submitted && errors.pizzaBoyutu}
+                        />
+                        <HamurKalinligi 
+                            value={hamurKalinligi} 
+                            onChange={setHamurKalinligi}
+                            error={submitted && errors.hamurKalinligi}
+                        />
+                    </div>
+                    
+                        <EkMalzemeler 
+                            selected={ekMalzemeler} 
+                            onChange={handleIngredientChange}
+                            error={submitted && errors.ekMalzemeler}
+                        />
+                        <CustomerName
+                            value={musteriIsmi}
+                            onChange={setMusteriIsmi}
+                            error={errors.musteriIsmi}
+                        />
+                        <SiparisNotu
+                            value={siparisNotu}
+                            onChange={setSiparisNotu}
+                        />
+                    <hr />
 
-                <div className="flex-items-start justify-between mt-8">
-                    <OrderCount siparisSayisi={siparisSayisi} setSiparisSayisi={setSiparisSayisi}/>
+                    <div className="flex flex-col md:flex-row items-start justify-between gap-8 mt-10">
+                        <OrderCount siparisSayisi={siparisSayisi} setSiparisSayisi={setSiparisSayisi}/>
 
-                    <OrderSummary secimlerToplam={secimlerToplam} toplamFiyat={toplamFiyat} disabled={!formHazirMi} />
-                </div>
-            </Form>
-        </div>
+                        <OrderSummary secimlerToplam={secimlerToplam} toplamFiyat={toplamFiyat} disabled={!formHazirMi} />
+                    </div>
+                </form>
+            </section>
+        </main>
         </>
     );
 }
