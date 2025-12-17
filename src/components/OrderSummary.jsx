@@ -14,6 +14,7 @@ export default function OrderSummary({ secimlerToplam, toplamFiyat, disabled }) 
       </div>
 
       <button
+        data-cy='submit-order'
         type="submit"
         disabled={disabled}
         className={`w-full py-3 rounded-md font-bold transition

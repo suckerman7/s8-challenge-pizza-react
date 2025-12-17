@@ -14,6 +14,7 @@ export default function PizzaBoyutu({ value, onChange, error }) {
           <label key={boyut} className="flex items-center gap-2">
             <input
               type="radio"
+              data-cy={`size-${boyut}`}
               checked={value === boyut}
               onChange={() => onChange(boyut)}
               className="accent-red-600"

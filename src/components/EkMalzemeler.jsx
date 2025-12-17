@@ -33,6 +33,7 @@ export default function EkMalzemeler({ selected, onChange, error }) {
           className="flex items-center gap-2 text-sm cursor-pointer"
         >
         <input
+          data-cy={`ingredient-${malzeme}`}
           type="checkbox"
           checked={selected.includes(malzeme)}
           onChange={() => onChange(malzeme)}

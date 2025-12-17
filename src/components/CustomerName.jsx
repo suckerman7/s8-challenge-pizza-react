@@ -6,6 +6,7 @@ export default function CustomerName({ value, onChange, error }) {
       </label>
 
       <input
+        data-cy='customer-name'
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}

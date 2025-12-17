@@ -8,6 +8,7 @@ export default function HamurKalinligi({ value, onChange, error }) {
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        data-cy='dough-size'
         className="w-56 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400">
           
         <option value="">Hamur Kalınlığı</option>
