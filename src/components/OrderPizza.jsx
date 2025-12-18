@@ -117,7 +117,13 @@ export default function OrderPizza() {
             console.log("Sipariş Yanıtı:", response.data);
 
             resetform();
-            history.push('/success');
+            history.push('/success', {
+                pizzaBoyutu,
+                hamurKalinligi,
+                ekMalzemeler,
+                secimlerToplam,
+                toplamFiyat,
+            });
         } catch (error) {
             console.error("Sipariş gönderilirken hata oluştu!", error)
         }

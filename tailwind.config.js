@@ -9,6 +9,7 @@ export default {
       fontFamily: {
         condensed: ['"Roboto Condensed"', 'sans-serif'],
         barlow: ["Barlow", "sans-serif"],
+        satisfy: ['Satisfy', 'cursive'],
       },
     },
   },
