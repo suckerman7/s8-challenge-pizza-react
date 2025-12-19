@@ -10,15 +10,6 @@ export default function OrderHeader() {
           alt="Teknolojik Yemekler"
           className="w-80 md:w-96 mb-8"
         />
-        
-        <nav className="text-sm text-white/80 self-start">
-          <span>Anasayfa</span>
-          <span className="mx-2">-</span>
-          <span>Seçenekler</span>
-          <span className="mx-2">-</span>
-          <span className="font-bold text-white">Sipariş Oluştur</span>
-        </nav>
-
       </div>
     </header>
   );

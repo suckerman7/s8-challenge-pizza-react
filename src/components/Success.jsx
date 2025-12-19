@@ -26,7 +26,7 @@ function Success({location}) {
           />
 
         <div className="text-center mt-8 sm:mt-16">
-          <h1 className="text-xl sm:text-2xl md:text-4xl text-yellow-300 tracking-wide leading-tight font-satisfy">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-yellow-300 tracking-wide leading-tight font-satisfy">
             Lezzetin yolda
           </h1>
           <h1 className="text-5xl md:text-8xl tracking-wide leading-tight font-condensed">

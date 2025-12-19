@@ -18,15 +18,15 @@ export default function HomeHeader() {
         <div className="relative z-10 flex flex-col items-center text-center text-white">
             
             <img
-            src={logo}
-            alt="Teknolojik Yemekler"
-            className="mt-24 mb-12 w-lg"
+              src={logo}
+              alt="Teknolojik Yemekler"
+              className="w-40 sm:w-56 md:w-72 mt-24 mb-12 mx-auto"
             />
 
             <h1 className="text-7xl md:text-9xl font-light tracking-wide leading-none">
-            KOD ACIKTIRIR
+              KOD ACIKTIRIR
             <br />
-            PİZZA, DOYURUR
+              PİZZA, DOYURUR
             </h1>
 
             <button

@@ -10,6 +10,7 @@ import HamurKalinligi from './HamurKalinligi';
 import EkMalzemeler from './EkMalzemeler';
 import CustomerName from './CustomerName';
 import SiparisNotu from './SiparisNotu';
+import Footer from './Footer';
 
 export default function OrderPizza() {
 
@@ -22,6 +23,9 @@ export default function OrderPizza() {
 
     const [errors, setErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
+    const [touched, setTouched] = useState({
+        musteriIsmi: false,
+    });
 
     const history = useHistory();
 
@@ -130,9 +134,9 @@ export default function OrderPizza() {
     };
 
     useEffect(() => {
-        if (!submitted) return;
+        if (!submitted && !touched.musteriIsmi) return;
         setErrors(validasyonformu());
-    }, [pizzaBoyutu, hamurKalinligi, ekMalzemeler, musteriIsmi]);
+    }, [pizzaBoyutu, hamurKalinligi, ekMalzemeler, musteriIsmi, touched.musteriIsmi,]);
 
     return (
         <>      
@@ -142,7 +146,7 @@ export default function OrderPizza() {
             <section className="max-w-3xl mx-auto mt-10 px-4">
             <OrderHero />
     
-                <form className="bg-white p-6 rounded-lg shadow space-y-8 mt-8" onSubmit={handleSubmit}>
+                <form className="bg-white p-4 sm:p-6 rounded-lg shadow space-y-10 mt-8" onSubmit={handleSubmit}>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <PizzaBoyutu 
                             value={pizzaBoyutu} 
@@ -164,7 +168,10 @@ export default function OrderPizza() {
                         <CustomerName
                             value={musteriIsmi}
                             onChange={setMusteriIsmi}
-                            error={errors.musteriIsmi}
+                            onBlur={() => 
+                                setTouched((prev) => ({ ...prev, musteriIsmi: true}))
+                            }
+                            error={(touched.musteriIsmi || submitted) && errors.musteriIsmi}
                         />
                         <SiparisNotu
                             value={siparisNotu}
@@ -179,6 +186,9 @@ export default function OrderPizza() {
                     </div>
                 </form>
             </section>
+            <div className='mt-20'>
+                <Footer />
+            </div>
         </main>
         </>
     );

@@ -4,7 +4,8 @@ export default function OrderCount({ siparisSayisi, setSiparisSayisi }) {
       <button
         type="button"
         onClick={() => setSiparisSayisi(Math.max(1, siparisSayisi - 1))}
-        className="bg-yellow-400 hover:bg-yellow-500 w-10 h-10 text-xl font-bold rounded"
+        className="bg-yellow-400 hover:bg-yellow-500 w-12 h-12 text-2xl font-bold rounded"
+        data-cy="decrease-count"
       >
         -
       </button>
@@ -14,7 +15,9 @@ export default function OrderCount({ siparisSayisi, setSiparisSayisi }) {
       <button
         type="button"
         onClick={() => setSiparisSayisi(siparisSayisi + 1)}
-        className="bg-yellow-400 hover:bg-yellow-500 w-10 h-10 text-xl font-bold rounded">
+        className="bg-yellow-400 hover:bg-yellow-500 w-10 h-10 text-2xl font-bold rounded"
+        data-cy="increase-count"
+      >
         +
       </button>
     </div>

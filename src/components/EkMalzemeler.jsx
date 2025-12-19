@@ -29,15 +29,26 @@ export default function EkMalzemeler({ selected, onChange, error }) {
       <div className="grid grid-flow-col grid-rows-5 gap-x-10 gap-y-3">
         {malzemeler.map((malzeme) => (
         <label
-          key={malzeme}
-          className="flex items-center gap-2 text-sm cursor-pointer"
-        >
-        <input
           data-cy={`ingredient-${malzeme}`}
+          key={malzeme}
+          className= {`flex items-center gap-3 text-sm cursor-pointer
+            ${selected.includes(malzeme) ? "font-semibold" : ""}`}
+        >
+          <span 
+          className= {`w-9 h-9 flex items-center justify-center rounded-md border
+            ${
+              selected.includes(malzeme)
+                ? "bg-yellow-400 border-yellow-600"
+                : "border-gray-300"
+          }`}
+          >
+            {selected.includes(malzeme) && "✓"}
+          </span>
+        <input
+          className="w-5 h-5 accent-red-600 hidden"
           type="checkbox"
           checked={selected.includes(malzeme)}
           onChange={() => onChange(malzeme)}
-          className="accent-red-600"
         />
         {malzeme}
       </label>

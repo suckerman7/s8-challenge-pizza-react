@@ -1,4 +1,4 @@
-export default function CustomerName({ value, onChange, error }) {
+export default function CustomerName({ value, onChange, error, onBlur }) {
   return (
     <div>
       <label className="font-semibold mb-2 block">
@@ -7,6 +7,7 @@ export default function CustomerName({ value, onChange, error }) {
 
       <input
         data-cy='customer-name'
+        onBlur={onBlur}
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}

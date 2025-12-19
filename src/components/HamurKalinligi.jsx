@@ -9,9 +9,9 @@ export default function HamurKalinligi({ value, onChange, error }) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         data-cy='dough-size'
-        className="w-56 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+        className="w-56 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400 flex items-center">
           
-        <option value="">Hamur Kalınlığı</option>
+        <option value="">-Hamur Kalınlığı Seç-</option>
         <option value="İnce">İnce Hamur</option>
         <option value="Orta">Klasik Hamur</option>
         <option value="Kalın">Kalın Hamur</option>
